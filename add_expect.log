@@ -4,16 +4,16 @@ pulseaudio: set_sink_input_mute() failed
 pulseaudio: Reason: Invalid argument
 
 Enter 1st Number:
-1
+4
 
 Enter 2nd Number:
-2
+5
 
-Sum: 3
-
+Sum: 9
 
 Test Pass 
 
+
 Exiting...
 
 *** FATAL ***
