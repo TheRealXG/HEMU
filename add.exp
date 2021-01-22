@@ -2,6 +2,9 @@
 
 # Wait enough (forever) until a long-time boot
 set timeout -1
+set num1 3
+set num2 4
+set sum 7
 
 # Start the guest VM
 spawn qemu-system-arm -net none -no-reboot -nographic -monitor none -serial stdio -M realview-pbx-a9 -m 256M -kernel add.exe
@@ -10,6 +13,6 @@ spawn qemu-system-arm -net none -no-reboot -nographic -monitor none -serial stdi
 log_file add_expect.txt
 
 expect {
-	"Enter*" { send "3\r"; exp_continue }
-	"Enter*" { send "4\r";}
+	"Enter*" { send "$num1\r"; exp_continue }
+	"Enter*" { send "$num2\r"; }
 }
