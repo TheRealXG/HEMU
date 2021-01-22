@@ -9,8 +9,7 @@ spawn qemu-system-arm -net none -no-reboot -nographic -monitor none -serial stdi
 # Save output to this log file
 log_file add_expect.txt
 
-expect "Enter*"
-send "3"
-
-expect "Enter*"
-send "4"
+expect {
+	"Enter*" { send "3\r"; exp_continue }
+	"Enter*" { send "4\r";}
+}
