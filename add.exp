@@ -2,17 +2,36 @@
 
 # Wait enough (forever) until a long-time boot
 set timeout -1
-set num1 3
-set num2 4
-set sum 7
+set val_1 [lindex $argv 0]
+set val_2 [lindex $argv 1]
+set output [lindex $argv 2]
+set failMsg "\n\nTest Fail \n\r"
+set passMsg "\n\nTest Pass \n\r"
 
 # Start the guest VM
 spawn qemu-system-arm -net none -no-reboot -nographic -monitor none -serial stdio -M realview-pbx-a9 -m 256M -kernel add.exe
 
 # Save output to this log file
-log_file add_expect.txt
+log_file -noappend add_expect.log
+
+# Wait for the prompt to enter values to sum
+expect "Enter 1st*"
+send $val_1\n
 
 expect {
-	"Enter*" { send "$num1\r"; exp_continue }
-	"Enter*" { send "$num2\r"; }
+	"Enter 2nd*" {send $val_2\n}
+
+	"Invalid Number" {puts $failMsg; exit}
 }
+
+
+expect {
+	"Sum: $output" { puts $passMsg;  send_log $passMsg}
+
+    "Sum: ?" { puts $failMsg;  send_log $failMsg }
+
+    "Invalid Number" { puts $failMsg; send_log $failMsg }
+}
+interact
+
+
