@@ -5,7 +5,7 @@ pool:
   name: 'Ubuntu 20.10 VM'
 
 steps:
-- script: 
+- script: |
     export QEMU_AUDIO_DRV="none"
     python3 tester.py 
   displayName: 'Run Tests'
