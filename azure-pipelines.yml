@@ -6,7 +6,7 @@ pool:
 
 steps:
 - script: |
-    ./add.exp
+    ./add.exp 4 5 9
   displayName: 'Run a multi-line script'
 
 - task: PublishPipelineArtifact@1
