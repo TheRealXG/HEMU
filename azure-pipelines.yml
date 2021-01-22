@@ -10,10 +10,6 @@ pool:
   name: 'Ubuntu 20.10 VM'
 
 steps:
-- script: qemu-system-arm -net none -no-reboot -nographic -M realview-pbx-a9 -m 256M -kernel hello.exe
-  displayName: 'Run a one-line script'
-
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
+    ./add.exp
   displayName: 'Run a multi-line script'
