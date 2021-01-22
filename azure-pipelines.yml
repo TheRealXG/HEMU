@@ -5,13 +5,14 @@ pool:
   name: 'Ubuntu 20.10 VM'
 
 steps:
-- script: 
+- script: |
     export QEMU_AUDIO_DRV="none"
     python3 tester.py 
   displayName: 'Run Tests'
 
 - task: PublishPipelineArtifact@1
+  displayName: 'Publish Log'
   inputs:
-    targetPath: 'add_expect.log'
-    artifact: 'Output Log'
+    targetPath: 'results.txt'
+    artifact: 'Test Results'
     publishLocation: 'pipeline'
