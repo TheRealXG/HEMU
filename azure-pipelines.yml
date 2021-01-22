@@ -11,6 +11,7 @@ steps:
   displayName: 'Run Tests'
 
 - task: PublishPipelineArtifact@1
+  displayName: 'Publish Log'
   inputs:
     targetPath: 'add_expect.log'
     artifact: 'Output Log'
