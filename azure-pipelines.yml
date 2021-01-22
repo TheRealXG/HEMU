@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'kevin-virtual-machine'
+  name: 'Ubuntu 20.10 VM'
 
 steps:
 - script: echo Hello, world!
