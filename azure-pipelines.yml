@@ -10,7 +10,7 @@ pool:
   name: 'Ubuntu 20.10 VM'
 
 steps:
-- script: echo Hello, world!
+- script: qemu-system-arm -net none -no-reboot -nographic -M realview-pbx-a9 -m 256M -kernel hello.exe
   displayName: 'Run a one-line script'
 
 - script: |
