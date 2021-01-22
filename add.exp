@@ -9,8 +9,8 @@ spawn qemu-system-arm -net none -no-reboot -nographic -monitor none -serial stdi
 # Save output to this log file
 log_file add_expect.txt
 
-expect "SHLL*] #"
-send "help mem\n"
+expect "Enter*"
+send "3"
 
-expect "SHLL*] #"
-send "help all\n"
+expect "Enter*"
+send "4"
