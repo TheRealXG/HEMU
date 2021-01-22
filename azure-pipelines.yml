@@ -11,7 +11,7 @@ steps:
   displayName: 'Run Tests'
 
 - task: PublishPipelineArtifact@1
-  displayName: 'Publish Log'
+  displayName: 'Publish Results'
   inputs:
     targetPath: 'results.txt'
     artifact: 'Test Results'
