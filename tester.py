@@ -7,7 +7,7 @@ seed(1)
 
 # define your test params
 numTests = 10
-maxFailedTestsAllowed = 0;
+maxFailedTestsAllowed = -1;
 addedIntegerMax = 99
 addedIntegerMin = 1
 logDir = "logs"
