@@ -13,6 +13,6 @@ steps:
 - task: PublishPipelineArtifact@1
   displayName: 'Publish Log'
   inputs:
-    targetPath: 'add_expect.log'
-    artifact: 'Output Log'
+    targetPath: 'results.txt'
+    artifact: 'Test Results'
     publishLocation: 'pipeline'
