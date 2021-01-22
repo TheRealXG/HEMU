@@ -5,9 +5,10 @@ pool:
   name: 'Ubuntu 20.10 VM'
 
 steps:
-- script: |
-    ./add.exp 4 5 9
-  displayName: 'Run a multi-line script'
+- script: 
+    export QEMU_AUDIO_DRV="none"
+    python3 tester.py 
+  displayName: 'Run Tests'
 
 - task: PublishPipelineArtifact@1
   inputs:
