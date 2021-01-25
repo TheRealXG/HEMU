@@ -12,6 +12,7 @@ steps:
 
 - task: PublishPipelineArtifact@1
   displayName: 'Publish Results'
+  condition: always()
   inputs:
     targetPath: 'results.txt'
     artifact: 'Test Results'
