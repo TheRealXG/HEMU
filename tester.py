@@ -7,7 +7,7 @@ seed(1)
 
 # define your test params
 numTests = 10
-maxFailedTestsAllowed = -1;
+maxFailedTestsAllowed = 0;
 addedIntegerMax = 99
 addedIntegerMin = 1
 logDir = "logs"
@@ -21,6 +21,7 @@ firstInt = 0
 secondInt = 0
 failure = 1
 failureList = []
+resultsList = []
 numTestsPassed = 0
 numTestsFailed = 0
 resultsLine = ""
@@ -46,17 +47,29 @@ for i in range(numTests):
     		# increment pass fail counters based on last line
     		if (failureList[i] == 1 and resultsLine == passMessage):
     			numTestsPassed += 1;
+    			resultsList.append("Test " + str(i) + ": Passed")
     		if (failureList[i] == 1 and resultsLine != passMessage):
     			numTestsFailed += 1;
+    			resultsList.append("Test " + str(i) + ": Failed")
     		if (failureList[i] == 0 and resultsLine == failMessage):
     			numTestsPassed += 1;
+    			resultsList.append("Test " + str(i) + ": Passed")
     		if (failureList[i] == 0 and resultsLine != failMessage):
     			numTestsFailed += 1;
+    			resultsList.append("Test " + str(i) + ": Failed")
     			
 # output results
 resultFile = open("results.txt", "w")
-resultFile.write("Number of Tests Passed: " + str(numTestsPassed) + "\n")
-resultFile.write("Number of Tests Failed: " + str(numTestsFailed))
+resultFile.write("***********\n")
+resultFile.write("Total Tests\n")
+resultFile.write("***********\n")
+resultFile.write("Passed: " + str(numTestsPassed) + "\n")
+resultFile.write("Failed: " + str(numTestsFailed) + "\n\n")
+resultFile.write("****************\n")
+resultFile.write("Individual Tests\n")
+resultFile.write("****************\n")
+for i in range (len(resultsList)):
+	resultFile.write(resultsList[i] + "\n")
 resultFile.close()
 
 if (numTestsFailed > maxFailedTestsAllowed): 
