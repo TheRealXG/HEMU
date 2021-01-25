@@ -9,7 +9,7 @@ seed(1)
 # define your test params
 numRandTests = 1
 testsRun = 0
-maxFailedTestsAllowed = 1;
+maxFailedTestsAllowed = 2;
 addedIntegerMax = 9
 addedIntegerMin = 0
 expScriptName = "calc"
