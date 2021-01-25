@@ -1,0 +1,34 @@
+#!/usr/bin/expect -f
+
+# Wait enough (forever) until a long-time boot
+set timeout -1
+set val_1 [lindex $argv 0]
+set val_2 [lindex $argv 1]
+set output [lindex $argv 2]
+set testNum [lindex $argv 3]
+set failMsg "\n\nTest Fail \n"
+set passMsg "\n\nTest Pass \n"
+
+# Start the guest VM
+spawn qemu-system-arm -net none -no-reboot -nographic -monitor none -serial stdio -M realview-pbx-a9 -m 256M -kernel calc.exe
+
+# Save output to this log file
+exec mkdir -p logs
+log_file -noappend logs/calc_expect$testNum.log
+
+# Wait for the prompt to enter values to sum
+expect "Enter 1st Value*"
+send $val_1\n
+
+expect {
+	"Enter 2nd Value*" {send $val_2\n}
+
+	"Invalid Number" {send_user $failMsg; exit}
+}
+
+
+expect {
+	"Final Output: $output" {send_user $passMsg }
+
+	eof { send_user $failMsg; exit}
+}

@@ -8,10 +8,11 @@ seed(1)
 # define your test params
 numTests = 10
 maxFailedTestsAllowed = 1;
-addedIntegerMax = 99
-addedIntegerMin = 1
+addedIntegerMax = 9
+addedIntegerMin = 0
+expScriptName = "calc"
 logDir = "logs"
-logName = "add_expect"
+logName = "calc_expect"
 logExt = ".log"
 passMessage = "Test Pass"
 failMessage = "Test Fail"
@@ -29,13 +30,13 @@ resultsLine = ""
 # run the tests in expect scripts
 for i in range(numTests):
 	if randint(1,10) >= 5:
-		failure = 0
+		failure = 2
 	else:
 		failure = 1
 	failureList.append(failure)	
 	firstInt = randint(addedIntegerMin, addedIntegerMax)
 	secondInt = randint(addedIntegerMin, addedIntegerMax)
-	os.system("./add.exp " + str(firstInt) + " " + str(secondInt) + " " + str((firstInt + secondInt) * failure) + " " + str(i))
+	os.system("./" + expScriptName + ".exp " + str(firstInt) + " " + str(secondInt) + " " + str((firstInt + secondInt) * failure) + " " + str(i))
 
 # check test output
 for i in range(numTests):
@@ -51,10 +52,10 @@ for i in range(numTests):
     		if (failureList[i] == 1 and resultsLine != passMessage):
     			numTestsFailed += 1;
     			resultsList.append("Test " + str(i) + ": Failed")
-    		if (failureList[i] == 0 and resultsLine == failMessage):
+    		if (failureList[i] == 2 and resultsLine == failMessage):
     			numTestsPassed += 1;
     			resultsList.append("Test " + str(i) + ": Passed")
-    		if (failureList[i] == 0 and resultsLine != failMessage):
+    		if (failureList[i] == 2 and resultsLine != failMessage):
     			numTestsFailed += 1;
     			resultsList.append("Test " + str(i) + ": Failed")
     			
@@ -68,6 +69,7 @@ resultFile.write("Failed: " + str(numTestsFailed) + "\n\n")
 resultFile.write("****************\n")
 resultFile.write("Individual Tests\n")
 resultFile.write("****************\n")
+
 for i in range (len(resultsList)):
 	resultFile.write(resultsList[i] + "\n")
 resultFile.close()
