@@ -117,16 +117,16 @@ def aggregateResults():
 			# increment pass fail counters based on last line
 			if (failureList[i] == 1 and resultsLine == passMessage):
 				numTestsPassed += 1;
-				resultsList.append("Test " + str(i) + ": Passed")
+				resultsList.append("Test " + str(i+1) + ": Passed")
 			if (failureList[i] == 1 and resultsLine != passMessage):
 				numTestsFailed += 1;
-				resultsList.append("Test " + str(i) + ": Failed")
+				resultsList.append("Test " + str(i+1) + ": Failed")
 			if (failureList[i] == 2 and resultsLine == failMessage):
 				numTestsPassed += 1;
-				resultsList.append("Test " + str(i) + ": Passed")
+				resultsList.append("Test " + str(i+1) + ": Passed")
 			if (failureList[i] == 2 and resultsLine != failMessage):
 				numTestsFailed += 1;
-				resultsList.append("Test " + str(i) + ": Failed")
+				resultsList.append("Test " + str(i+1) + ": Failed")
 				
 				
 # output results				
