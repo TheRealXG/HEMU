@@ -8,7 +8,6 @@ seed(1)
 
 # define your test params
 numRandTests = 1
-testsRun = 0
 maxFailedTestsAllowed = 2;
 addedIntegerMax = 9
 addedIntegerMin = 0
@@ -27,9 +26,12 @@ failureList = []
 resultsList = []
 numTestsPassed = 0
 numTestsFailed = 0
+
 resultsLine = ""
 
 def main():
+	numTestsRun = 0
+	
 	inputFile = False
 	inputFileName = ""
 	
@@ -43,12 +45,13 @@ def main():
 
 	# use input file if given, random if not given
 	if inputFile:
-		runInputTests(inputFileName)
+		numTestsRun = runInputTests(inputFileName)
 	else:
 		runRandTests()
+		numTestsRun = numRandTests
 		
-	aggregateResults()
-	outputResults()	
+	numPassedFailed = aggregateResults(numTestsRun)
+	outputResults(numPassedFailed[0], numPassedFailed[1])	
 	
 	if (numTestsFailed > maxFailedTestsAllowed):
 		sys.exit(1)
@@ -58,7 +61,6 @@ def main():
 
 # run the tests in expect scripts with input file
 def runInputTests(inputFileName):
-	global testsRun
 	testCtr = 0
 	
 	with open(inputFileName) as inputFile:
@@ -83,13 +85,11 @@ def runInputTests(inputFileName):
 				
 				testCtr += 1
 				
-	testsRun = testCtr
+	return testCtr
 
     
 # run the tests in expect scripts with random inputs
 def runRandTests():
-	global testsRun
-	
 	for i in range(numRandTests):
 		if randint(1,10) >= 5:
 			failure = 2
@@ -99,16 +99,14 @@ def runRandTests():
 		firstInt = randint(addedIntegerMin, addedIntegerMax)
 		secondInt = randint(addedIntegerMin, addedIntegerMax)
 		os.system("./" + expScriptName + ".exp " + str(firstInt) + " " + str(secondInt) + " " + str((firstInt + secondInt) * failure) + " " + str(i))
-	
-	testsRun = numRandTests
 
 
 # check test output
-def aggregateResults():
-	global numTestsPassed
-	global numTestsFailed
+def aggregateResults(numTestsRun):
+	numTestsPassed = 0
+	numTestsFailed = 0
 	
-	for i in range(testsRun):
+	for i in range(numTestsRun):
 		# get last line of the log which has the pass/fail message
 		with open(logDir + "/" + logName + str(i) + logExt) as logFile:
 			for line in logFile:
@@ -128,9 +126,11 @@ def aggregateResults():
 				numTestsFailed += 1;
 				resultsList.append("Test " + str(i+1) + ": Failed")
 				
+	return [numTestsPassed, numTestsFailed]			
+				
 				
 # output results				
-def outputResults():
+def outputResults(numTestsPassed, numTestsFailed):
 	resultFile = open("results.txt", "w")
 	resultFile.write("***********\n")
 	resultFile.write("Total Tests\n")
