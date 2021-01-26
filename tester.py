@@ -74,14 +74,9 @@ def runInputTests(inputFileName):
 				firstInt = inputs[0]
 				secondInt = inputs[1]
 				total = inputs[2]
-				 
-				if inputs[3].lower() == 'p':
-					failure = 1
-				else:
-					failure = 2
-				failureList.append(failure)
+				failureList.append(inputs[3])
 				
-				os.system("./" + expScriptName + ".exp " + str(firstInt) + " " + str(secondInt) + " " + str(total * failure) + " " + str(testCtr))
+				os.system("./" + expScriptName + ".exp " + str(firstInt) + " " + str(secondInt) + " " + str(total) + " " + str(testCtr))
 				
 				testCtr += 1
 				
@@ -96,6 +91,7 @@ def runRandTests():
 		else:
 			failure = 1
 		failureList.append(failure)
+		
 		firstInt = randint(addedIntegerMin, addedIntegerMax)
 		secondInt = randint(addedIntegerMin, addedIntegerMax)
 		os.system("./" + expScriptName + ".exp " + str(firstInt) + " " + str(secondInt) + " " + str((firstInt + secondInt) * failure) + " " + str(i))
@@ -113,16 +109,16 @@ def aggregateResults(numTestsRun):
 				pass
 			resultsLine = line.strip()
 			# increment pass fail counters based on last line
-			if (failureList[i] == 1 and resultsLine == passMessage):
+			if (failureList[i].lower() == 'p' and resultsLine == passMessage):
 				numTestsPassed += 1;
 				resultsList.append("Test " + str(i+1) + ": Passed")
-			if (failureList[i] == 1 and resultsLine != passMessage):
+			if (failureList[i].lower() == 'p' and resultsLine != passMessage):
 				numTestsFailed += 1;
 				resultsList.append("Test " + str(i+1) + ": Failed")
-			if (failureList[i] == 2 and resultsLine == failMessage):
+			if (failureList[i].lower() == 'f' and resultsLine == failMessage):
 				numTestsPassed += 1;
 				resultsList.append("Test " + str(i+1) + ": Passed")
-			if (failureList[i] == 2 and resultsLine != failMessage):
+			if (failureList[i].lower() == 'f' and resultsLine != failMessage):
 				numTestsFailed += 1;
 				resultsList.append("Test " + str(i+1) + ": Failed")
 				
