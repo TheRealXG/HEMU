@@ -16,7 +16,6 @@ steps:
     organization: 'therealxg'
     scannerMode: 'CLI'
     configMode: 'file'
-- task: SonarQubeAnalyze@4
 
 - task: PublishPipelineArtifact@1
   displayName: 'Publish Results'
