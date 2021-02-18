@@ -17,3 +17,10 @@ steps:
     targetPath: 'results.txt'
     artifact: 'Test Results'
     publishLocation: 'pipeline'
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonar'
+    organization: 'therealxg'
+    scannerMode: 'CLI'
+    configMode: 'file'
+- task: SonarQubeAnalyze@4
